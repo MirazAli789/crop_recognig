@@ -50,6 +50,3 @@ def upload_image():
 
     suggestion = suggestions.get(recognized_crop.lower(), "No suggestion available for this crop.")
     return jsonify({"recognized_crop": recognized_crop, "suggestion": suggestion})
-
-if __name__ == '__main__':
-    app.run(debug=False,host='0.0.0.0')
