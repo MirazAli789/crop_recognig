@@ -5,6 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crop Recognition</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            border: 4px solid rgba(0, 123, 255, 0.3);
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Image Preview */
+        #imagePreview {
+            display: none;
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+        }
+
+        /* Modern UI - Smooth Transitions */
+        button {
+            transition: background-color 0.3s ease;
+        }
+
+        /* Style the crop suggestion box */
+        .result-box {
+            font-size: 1.4rem;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #e9ecef;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .show {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -14,8 +63,10 @@
         <main>
             <section id="image-upload-section">
                 <h2>Upload an Image of a Crop</h2>
-                <input type="file" id="imageInput" accept="image/*" />
-                <button id="submitButton" onclick="uploadImage()">Submit</button> <!-- Added Submit button -->
+                <input type="file" id="imageInput" accept="image/*" onchange="previewImage()" />
+                <img id="imagePreview" alt="Image Preview" />
+                <button id="submitButton" onclick="uploadImage()">Submit</button>
+                <div class="spinner" id="spinner"></div>
                 <div id="cropSuggestion" class="result-box"></div>
             </section>
         </main>
