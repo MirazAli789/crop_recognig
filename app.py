@@ -6,6 +6,7 @@ import io
 import logging
 from threading import Thread
 import json
+import os
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -86,4 +87,5 @@ def upload_image():
     return jsonify({"recognized_crop": recognized_crop, "suggestion": suggestion})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))  # Use PORT environment variable or default to 5000
+    app.run(host='0.0.0.0', port=port, debug=True)
